@@ -12,6 +12,9 @@ on:
       - 'main'
 
 permissions:
+  id-token: write
+  contents: read
+  attestations: write
   packages: write
 
 jobs:
@@ -54,7 +57,8 @@ jobs:
           flavor: |
             latest=auto
             suffix=${{ matrix.variants.tag }}
-      - uses: docker/build-push-action@v6.18.0
+      - id: build
+        uses: docker/build-push-action@v6.18.0
         with:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -63,3 +67,12 @@ jobs:
           context: .
           build-args: ${{ matrix.variants.build_args }}
           file: Dockerfile.debian
+          provenance: mode=max
+          sbom: true
+          cache-from: type=registry,ref=ghcr.io/{{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }}
+          cache-to: type=registry,ref=ghcr.io/{{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }},mode=max
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-name: ghcr.io/${{ steps.tag.outputs.org }}/guacd
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: ${{ github.event_name != 'pull_request' }}
