@@ -1,4 +1,4 @@
-ARG BUILD_IMAGE=docker.io/library/debian:bookworm-slim
+ARG BUILD_IMAGE=docker.io/library/debian:trixie-slim
 
 #
 # Dockerfile for guacamole-server
@@ -238,8 +238,10 @@ ARG FREERDP_X86_OPTS
 ARG PREFIX_DIR
 ARG WITH_FREERDP
 
+COPY ./patches/freerdp/ ${BUILD_DIR}/patches/freerdp
 RUN ${BUILD_DIR}/src/guacd-docker/bin/autobuild.sh "FREERDP" \
-    "https://github.com/FreeRDP/FreeRDP"
+    "https://github.com/FreeRDP/FreeRDP" \
+    "patches/freerdp"
 
 #
 # STAGE 7: Collect dependencies built by previous stages and build

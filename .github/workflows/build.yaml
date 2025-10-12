@@ -26,7 +26,7 @@ jobs:
             patches: fips.patch
             label: "FIPS"
             build_args: |
-              BUILD_IMAGE=ghcr.io/goauthentik/fips-debian:bookworm-slim-fips
+              BUILD_IMAGE=ghcr.io/goauthentik/fips-debian:trixie-slim-fips
     name: Build ${{ matrix.variants.label }}
     runs-on: ubuntu-latest
     steps:
