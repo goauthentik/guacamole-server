@@ -69,8 +69,8 @@ jobs:
           file: Dockerfile.debian
           provenance: mode=max
           sbom: true
-          cache-from: type=registry,ref=ghcr.io/{{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }}
-          cache-to: type=registry,ref=ghcr.io/{{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }},mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }}
+          cache-to: type=registry,ref=ghcr.io/${{ steps.tag.outputs.org }}/guacd:buildcache${{ matrix.variants.tag }},mode=max
       - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
         with:
           subject-name: ghcr.io/${{ steps.tag.outputs.org }}/guacd
