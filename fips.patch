@@ -1,5 +1,5 @@
 diff --git a/Dockerfile.debian b/Dockerfile.debian
-index 214ee8da..e67e8bea 100644
+index 7ee5dd61..9a184d5f 100644
 --- a/Dockerfile.debian
 +++ b/Dockerfile.debian
 @@ -157,7 +157,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -9,4 +9,4 @@ index 214ee8da..e67e8bea 100644
 -    libssl-dev                    \
      libpango1.0-dev               \
      libpulse-dev                  \
-     uuid-dev
+     uuid-dev                      \
